@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Flower Are You? - Personality Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #FFE5E5 0%, #C8E6C9 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #FF69B4;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #66BB6A;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .quiz-section {
+            margin: 30px 0;
+        }
+
+        .question {
+            background: linear-gradient(135deg, #FFE5E5 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question h3 {
+            color: #FF1493;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid #C8E6C9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #66BB6A;
+        }
+
+        .option:hover {
+            background: #C8E6C9;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #81C784;
+            color: white;
+            border-color: #81C784;
+        }
+
+        .btn {
+            background: #FFB6C1;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #81C784;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result-flower {
+            font-size: 5rem;
+            margin: 20px 0;
+        }
+
+        .result h2 {
+            font-family: 'Pacifico', cursive;
+            color: #FF69B4;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .result-description {
+            background: linear-gradient(135deg, #FFE5E5 0%, #C8E6C9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #FF1493;
+            font-weight: 600;
+        }
+
+        .traits {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #C8E6C9;
+        }
+
+        .traits h3 {
+            color: #66BB6A;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .traits ul {
+            list-style: none;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .traits li {
+            padding: 8px 0;
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        .traits li:before {
+            content: "🌸 ";
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin: 10px;
+            color: #81C784;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #FF69B4;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="startScreen">
+            <h1>🌺 What Flower Are You? 🌺</h1>
+            <p class="subtitle">Discover which beautiful bloom matches your unique personality!</p>
+            <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=80" alt="Colorful flower bouquet" style="width: 100%; max-width: 400px; margin: 20px 0;">
+            <button class="btn" onclick="startQuiz()">Start Quiz</button>
+            <br>
+            <a href="scratch.html" class="nav-link">← Back to Flower Page</a>
+        </div>
+
+        <div id="quizScreen" class="hidden">
+            <h1>Answer These Questions</h1>
+            <div class="quiz-section" id="quizQuestions"></div>
+            <button class="btn" id="submitBtn" onclick="calculateResult()" disabled>See My Flower!</button>
+        </div>
+
+        <div id="resultScreen" class="result">
+            <div class="result-flower" id="resultEmoji"></div>
+            <h2 id="resultName"></h2>
+            <div class="result-description" id="resultDescription"></div>
+            <div class="traits">
+                <h3>Your Flower Traits:</h3>
+                <ul id="resultTraits"></ul>
+            </div>
+            <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
+            <br>
+            <a href="scratch.html" class="nav-link">← Back to Flower Page</a>
+            <a href="index.html" class="nav-link">Home</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How do you prefer to spend your free time?",
+                options: [
+                    { text: "Hosting gatherings with friends", points: { rose: 3, sunflower: 2, tulip: 1, peony: 2, lavender: 1 } },
+                    { text: "Reading or working on creative projects", points: { rose: 1, sunflower: 1, tulip: 2, peony: 3, lavender: 3 } },
+                    { text: "Outdoor adventures and sports", points: { rose: 1, sunflower: 3, tulip: 2, peony: 1, lavender: 1 } },
+                    { text: "Relaxing and self-care activities", points: { rose: 2, sunflower: 1, tulip: 3, peony: 2, lavender: 3 } }
+                ]
+            },
+            {
+                question: "What word best describes you?",
+                options: [
+                    { text: "Passionate", points: { rose: 3, sunflower: 2, tulip: 1, peony: 2, lavender: 1 } },
+                    { text: "Cheerful", points: { rose: 1, sunflower: 3, tulip: 2, peony: 1, lavender: 1 } },
+                    { text: "Elegant", points: { rose: 2, sunflower: 1, tulip: 3, peony: 2, lavender: 2 } },
+                    { text: "Serene", points: { rose: 1, sunflower: 1, tulip: 1, peony: 2, lavender: 3 } }
+                ]
+            },
+            {
+                question: "What's your ideal vacation?",
+                options: [
+                    { text: "Romantic city escape", points: { rose: 3, sunflower: 1, tulip: 2, peony: 3, lavender: 1 } },
+                    { text: "Beach with lots of sunshine", points: { rose: 1, sunflower: 3, tulip: 1, peony: 1, lavender: 2 } },
+                    { text: "Cultural tour of museums and gardens", points: { rose: 2, sunflower: 1, tulip: 3, peony: 2, lavender: 2 } },
+                    { text: "Peaceful countryside retreat", points: { rose: 1, sunflower: 2, tulip: 1, peony: 2, lavender: 3 } }
+                ]
+            },
+            {
+                question: "How do you handle stress?",
+                options: [
+                    { text: "Talk it out with loved ones", points: { rose: 3, sunflower: 2, tulip: 1, peony: 2, lavender: 1 } },
+                    { text: "Stay positive and keep busy", points: { rose: 1, sunflower: 3, tulip: 2, peony: 1, lavender: 1 } },
+                    { text: "Plan and organize solutions", points: { rose: 1, sunflower: 1, tulip: 3, peony: 2, lavender: 2 } },
+                    { text: "Find quiet time to reflect", points: { rose: 1, sunflower: 1, tulip: 1, peony: 2, lavender: 3 } }
+                ]
+            },
+            {
+                question: "What's your fashion style?",
+                options: [
+                    { text: "Bold and romantic", points: { rose: 3, sunflower: 1, tulip: 1, peony: 3, lavender: 1 } },
+                    { text: "Bright and fun", points: { rose: 1, sunflower: 3, tulip: 2, peony: 1, lavender: 1 } },
+                    { text: "Classic and sophisticated", points: { rose: 2, sunflower: 1, tulip: 3, peony: 2, lavender: 2 } },
+                    { text: "Soft and comfortable", points: { rose: 1, sunflower: 1, tulip: 1, peony: 2, lavender: 3 } }
+                ]
+            }
+        ];
+
+        const flowers = {
+            rose: {
+                name: "Rose",
+                emoji: "🌹",
+                description: "You are a Rose—passionate, romantic, and deeply emotional! You wear your heart on your sleeve and aren't afraid to show love and affection. Like the classic rose, you are timeless, elegant, and unforgettable. You bring warmth and beauty wherever you go.",
+                traits: ["Passionate and loving", "Romantic at heart", "Emotionally expressive", "Classic and timeless", "Deeply caring friend"]
+            },
+            sunflower: {
+                name: "Sunflower",
+                emoji: "🌻",
+                description: "You are a Sunflower—bright, cheerful, and full of positive energy! You light up every room you enter and have an infectious enthusiasm for life. Like a sunflower that follows the sun, you always look for the bright side and inspire others with your optimism.",
+                traits: ["Optimistic and joyful", "Energetic and outgoing", "Natural leader", "Spreads happiness", "Loyal and warm-hearted"]
+            },
+            tulip: {
+                name: "Tulip",
+                emoji: "🌷",
+                description: "You are a Tulip—elegant, graceful, and sophisticated! You have impeccable taste and appreciate the finer things in life. Like the tulip's clean lines and perfect form, you value order, beauty, and simplicity. You carry yourself with poise and confidence.",
+                traits: ["Elegant and refined", "Well-organized", "Appreciates beauty", "Graceful under pressure", "Sophisticated taste"]
+            },
+            peony: {
+                name: "Peony",
+                emoji: "💐",
+                description: "You are a Peony—lush, romantic, and full of depth! You are thoughtful and creative, with many layers to your personality. Like the peony's abundant petals, you have a rich inner world and deep emotions. You are artistic, sensitive, and cherish meaningful connections.",
+                traits: ["Creative and artistic", "Emotionally deep", "Romantic soul", "Thoughtful and introspective", "Values meaningful relationships"]
+            },
+            lavender: {
+                name: "Lavender",
+                emoji: "💜",
+                description: "You are Lavender—calm, peaceful, and wise! You bring tranquility to those around you and have a soothing presence. Like lavender's gentle fragrance, you create a sense of peace wherever you go. You are thoughtful, balanced, and value harmony in all aspects of life.",
+                traits: ["Calm and peaceful", "Wise and thoughtful", "Creates harmony", "Balanced perspective", "Natural healer"]
+            }
+        };
+
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('quizQuestions');
+            container.innerHTML = '';
+
+            questions.forEach((q, qIndex) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<h3>Question ${qIndex + 1}: ${q.question}</h3>`;
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+
+                q.options.forEach((opt, oIndex) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    optionDiv.textContent = opt.text;
+                    optionDiv.onclick = () => selectOption(qIndex, oIndex, optionDiv);
+                    optionsDiv.appendChild(optionDiv);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(questionIndex, optionIndex, element) {
+            const questionDiv = element.parentElement.parentElement;
+            const allOptions = questionDiv.querySelectorAll('.option');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            answers[questionIndex] = questions[questionIndex].options[optionIndex].points;
+            
+            checkAllAnswered();
+        }
+
+        function checkAllAnswered() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = answers.length !== questions.length;
+        }
+
+        function calculateResult() {
+            const scores = { rose: 0, sunflower: 0, tulip: 0, peony: 0, lavender: 0 };
+
+            answers.forEach(answer => {
+                for (let flower in answer) {
+                    scores[flower] += answer[flower];
+                }
+            });
+
+            let maxScore = 0;
+            let resultFlower = 'rose';
+
+            for (let flower in scores) {
+                if (scores[flower] > maxScore) {
+                    maxScore = scores[flower];
+                    resultFlower = flower;
+                }
+            }
+
+            displayResult(resultFlower);
+        }
+
+        function displayResult(flowerType) {
+            const flower = flowers[flowerType];
+            
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.add('show');
+            
+            document.getElementById('resultEmoji').textContent = flower.emoji;
+            document.getElementById('resultName').textContent = `You are a ${flower.name}!`;
+            document.getElementById('resultDescription').textContent = flower.description;
+            
+            const traitsList = document.getElementById('resultTraits');
+            traitsList.innerHTML = '';
+            flower.traits.forEach(trait => {
+                const li = document.createElement('li');
+                li.textContent = trait;
+                traitsList.appendChild(li);
+            });
+        }
+
+        function restartQuiz() {
+            answers = [];
+            document.getElementById('resultScreen').classList.remove('show');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
