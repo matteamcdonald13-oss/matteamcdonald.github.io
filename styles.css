@@ -10,7 +10,7 @@
 body {
     font-family: 'Quicksand', 'Arial', sans-serif;
     line-height: 1.7;
-    color: #FF69B4;
+    color: #555;
     background-color: #fff5f7;
     background-image: 
         radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
@@ -92,7 +92,7 @@ body {
 .intro-section p {
     font-size: 1.15rem;
     margin-bottom: 15px;
-    color: #FF1493;
+    color: #444;
     font-weight: 500;
 }
 
@@ -141,7 +141,7 @@ body {
 }
 
 .flower-info p {
-    color: #66BB6A;
+    color: #555;
     font-size: 1.1rem;
     line-height: 1.8;
     font-weight: 500;
@@ -179,7 +179,7 @@ body {
 
 .nested-lists ol > li {
     margin-bottom: 20px;
-    color: #FF1493;
+    color: #333;
     font-weight: 700;
 }
 
@@ -190,8 +190,8 @@ body {
 
 .nested-lists ul li {
     margin-bottom: 8px;
-    color: #66BB6A;
-    font-weight: 600;
+    color: #555;
+    font-weight: 500;
 }
 
 /* Video Section */
@@ -213,7 +213,7 @@ body {
 .video-section p {
     font-size: 1.15rem;
     margin-bottom: 30px;
-    color: #66BB6A;
+    color: #444;
     font-weight: 600;
 }
 
@@ -257,7 +257,7 @@ body {
     font-size: 1.15rem;
     text-align: center;
     margin-bottom: 30px;
-    color: #66BB6A;
+    color: #444;
     font-weight: 600;
 }
 
@@ -303,7 +303,7 @@ body {
 .app-section p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-    color: #66BB6A;
+    color: #444;
     font-weight: 600;
 }
 
